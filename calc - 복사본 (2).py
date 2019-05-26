@@ -518,15 +518,11 @@ def p_statement_list_2(p):
 
 def p_selection_statement_1(p):
     'selection_statement : IF LPAREN expression RPAREN statement'
-    global conditional_statement
-    conditional_statement += 1
     pass
 
 
 def p_selection_statement_2(p):
     'selection_statement : IF LPAREN expression RPAREN statement ELSE statement '
-    global conditional_statement
-    conditional_statement += 1
     pass
 
 
@@ -535,15 +531,11 @@ def p_selection_statement_2(p):
 
 def p_iteration_statement_1(p):
     'iteration_statement : WHILE LPAREN expression RPAREN statement'
-    global loop
-    loop += 1
     pass
 
 
 def p_iteration_statement_2(p):
     'iteration_statement : FOR LPAREN expression_opt SEMI expression_opt SEMI expression_opt RPAREN statement '
-    global loop
-    loop += 1
     pass
 
 

@@ -3,15 +3,6 @@ sys.path.insert(0, "../..")
 
 import ply.lex as lex
 
-# count variable
-include = 0
-declared_functions = 0
-declared_variable = 0
-conditional_statement = 0
-loop = 0
-called_functions = 0
-
-
 # reserved
 reserved = (
     'INT', 'RETURN', 'VOID', 'FOR', 'ELSE', 'IF', 'WHILE', 'BREAK',
@@ -56,6 +47,7 @@ t_GE = r'>='
 t_EQ = r'=='
 
 # Assignment operators
+
 t_EQUALS = r'='
 
 # Increment/decrement
@@ -90,6 +82,11 @@ def t_newline(t):
 t_ignore = ' \t'
 
 
+# Error handling rule
+def t_error(t):
+    print("Illegal character '%s'" % t.value[0])
+    t.lexer.skip(1)
+
 # Identifiers and reserved words
 
 reserved_map = {}
@@ -100,6 +97,11 @@ def t_ID(t):
     r'[A-Za-z_][\w_]*'
     t.type = reserved_map.get(t.value, "ID")
     return t
+
+# Preprocessor directive (ignored)
+def t_preprocessor(t):
+    r'\#(.)*?\n'
+    t.lexer.lineno += 1
 
 # Integer literal
 t_ICONST = r'\d+([uU]|[lL]|[uU][lL]|[lL][uU])?'
@@ -112,21 +114,6 @@ t_SCONST = r'\"([^\\\n]|(\\.))*?\"'
 
 # Character constant 'c' or L'c'
 t_CCONST = r'(L)?\'([^\\\n]|(\\.))*?\''
-
-# Comments
-def t_comment(t):
-    r'/\*(.|\n)*?\*/'
-    t.lexer.lineno += t.value.count('\n')
-
-# Preprocessor directive (ignored)
-def t_preprocessor(t):
-    r'\#(.)*?\n'
-    t.lexer.lineno += 1
-
-# Error handling rule
-def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
-    t.lexer.skip(1)
 
 # Build the lexer
 lexer = lex.lex()
@@ -143,12 +130,12 @@ import ply.yacc as yacc
 # translation-unit:
 
 
-def p_translation_unit_1(p):
+def p_translation_unip_1(p):
     'translation_unit : external_declaration'
     p[0] = p[1]
 
 
-def p_translation_unit_2(p):
+def p_translation_unip_2(p):
     'translation_unit : translation_unit external_declaration'
     p[1].extend(p[2])
     p[0] = p[1]
@@ -159,8 +146,6 @@ def p_translation_unit_2(p):
 def p_external_declaration_1(p):
     'external_declaration : function_definition'
     p[0] = [p[1]]
-    global declared_functions
-    declared_functions += 1
 
 
 def p_external_declaration_2(p):
@@ -193,7 +178,7 @@ def p_function_definition_4(p):
 
 
 def p_declaration_1(p):
-    'declaration : declaration_specifiers init_declarator_list SEMI'
+    'declaration : declaration_specifiers inip_declarator_list SEMI'
     pass
 
 
@@ -204,12 +189,12 @@ def p_declaration_2(p):
 # declaration-list:
 
 
-def p_declaration_list_1(p):
+def p_declaration_lisp_1(p):
     'declaration_list : declaration'
     pass
 
 
-def p_declaration_list_2(p):
+def p_declaration_lisp_2(p):
     'declaration_list : declaration_list declaration '
     pass
 
@@ -240,38 +225,36 @@ def p_type_specifier(p):
 # init-declarator-list:
 
 
-def p_init_declarator_list_1(p):
-    'init_declarator_list : init_declarator'
-    global declared_variable
-    declared_variable += 1
+def p_inip_declarator_lisp_1(p):
+    'inip_declarator_list : inip_declarator'
     pass
 
 
-def p_init_declarator_list_2(p):
-    'init_declarator_list : init_declarator_list COMMA init_declarator'
+def p_inip_declarator_lisp_2(p):
+    'inip_declarator_list : inip_declarator_list COMMA inip_declarator'
     pass
 
 # init-declarator
 
 
-def p_init_declarator_1(p):
-    'init_declarator : declarator'
+def p_inip_declarator_1(p):
+    'inip_declarator : declarator'
     pass
 
 
-def p_init_declarator_2(p):
-    'init_declarator : declarator EQUALS initializer'
+def p_inip_declarator_2(p):
+    'inip_declarator : declarator EQUALS initializer'
     pass
 
 # specifier-qualifier-list:
 
 
-def p_specifier_qualifier_list_1(p):
+def p_specifier_qualifier_lisp_1(p):
     'specifier_qualifier_list : type_specifier specifier_qualifier_list'
     pass
 
 
-def p_specifier_qualifier_list_2(p):
+def p_specifier_qualifier_lisp_2(p):
     'specifier_qualifier_list : type_specifier'
     pass
 
@@ -280,46 +263,46 @@ def p_specifier_qualifier_list_2(p):
 
 
 def p_declarator_1(p):
-    'declarator : direct_declarator'
+    'declarator : direcp_declarator'
     pass
 
 # direct-declarator:
 
 
-def p_direct_declarator_1(p):
-    'direct_declarator : ID'
+def p_direcp_declarator_1(p):
+    'direcp_declarator : ID'
     pass
 
 
-def p_direct_declarator_2(p):
-    'direct_declarator : LPAREN declarator RPAREN'
+def p_direcp_declarator_2(p):
+    'direcp_declarator : LPAREN declarator RPAREN'
     pass
 
 
-def p_direct_declarator_3(p):
-    'direct_declarator : direct_declarator LBRACKET constant_expression_opt RBRACKET'
+def p_direcp_declarator_3(p):
+    'direcp_declarator : direcp_declarator LBRACKET constanp_expression_opt RBRACKET'
     pass
 
 
-def p_direct_declarator_4(p):
-    'direct_declarator : direct_declarator LPAREN parameter_type_list RPAREN '
+def p_direcp_declarator_4(p):
+    'direcp_declarator : direcp_declarator LPAREN parameter_type_list RPAREN '
     pass
 
 
-def p_direct_declarator_5(p):
-    'direct_declarator : direct_declarator LPAREN identifier_list RPAREN '
+def p_direcp_declarator_5(p):
+    'direcp_declarator : direcp_declarator LPAREN identifier_list RPAREN '
     pass
 
 
-def p_direct_declarator_6(p):
-    'direct_declarator : direct_declarator LPAREN RPAREN '
+def p_direcp_declarator_6(p):
+    'direcp_declarator : direcp_declarator LPAREN RPAREN '
     pass
 
 
 # parameter-type-list:
 
 
-def p_parameter_type_list_1(p):
+def p_parameter_type_lisp_1(p):
     'parameter_type_list : parameter_list'
     pass
 
@@ -327,12 +310,12 @@ def p_parameter_type_list_1(p):
 # parameter-list:
 
 
-def p_parameter_list_1(p):
+def p_parameter_lisp_1(p):
     'parameter_list : parameter_declaration'
     pass
 
 
-def p_parameter_list_2(p):
+def p_parameter_lisp_2(p):
     'parameter_list : parameter_list COMMA parameter_declaration'
     pass
 
@@ -345,18 +328,18 @@ def p_parameter_declaration_1(p):
 
 
 def p_parameter_declaration_2(p):
-    'parameter_declaration : declaration_specifiers abstract_declarator_opt'
+    'parameter_declaration : declaration_specifiers abstracp_declarator_opt'
     pass
 
 # identifier-list:
 
 
-def p_identifier_list_1(p):
+def p_identifier_lisp_1(p):
     'identifier_list : ID'
     pass
 
 
-def p_identifier_list_2(p):
+def p_identifier_lisp_2(p):
     'identifier_list : identifier_list COMMA ID'
     pass
 
@@ -364,7 +347,7 @@ def p_identifier_list_2(p):
 
 
 def p_initializer_1(p):
-    'initializer : assignment_expression'
+    'initializer : assignmenp_expression'
     pass
 
 
@@ -376,12 +359,12 @@ def p_initializer_2(p):
 # initializer-list:
 
 
-def p_initializer_list_1(p):
+def p_initializer_lisp_1(p):
     'initializer_list : initializer'
     pass
 
 
-def p_initializer_list_2(p):
+def p_initializer_lisp_2(p):
     'initializer_list : initializer_list COMMA initializer'
     pass
 
@@ -389,73 +372,73 @@ def p_initializer_list_2(p):
 
 
 def p_type_name(p):
-    'type_name : specifier_qualifier_list abstract_declarator_opt'
+    'type_name : specifier_qualifier_list abstracp_declarator_opt'
     pass
 
 
-def p_abstract_declarator_opt_1(p):
-    'abstract_declarator_opt : empty'
+def p_abstracp_declarator_opp_1(p):
+    'abstracp_declarator_opt : empty'
     pass
 
 
-def p_abstract_declarator_opt_2(p):
-    'abstract_declarator_opt : abstract_declarator'
+def p_abstracp_declarator_opp_2(p):
+    'abstracp_declarator_opt : abstracp_declarator'
     pass
 
 # abstract-declarator:
 
 
-def p_abstract_declarator_1(p):
-    'abstract_declarator : direct_abstract_declarator'
+def p_abstracp_declarator_1(p):
+    'abstracp_declarator : direcp_abstracp_declarator'
     pass
 
 # direct-abstract-declarator:
 
 
-def p_direct_abstract_declarator_1(p):
-    'direct_abstract_declarator : LPAREN abstract_declarator RPAREN'
+def p_direcp_abstracp_declarator_1(p):
+    'direcp_abstracp_declarator : LPAREN abstracp_declarator RPAREN'
     pass
 
 
-def p_direct_abstract_declarator_2(p):
-    'direct_abstract_declarator : direct_abstract_declarator LBRACKET constant_expression_opt RBRACKET'
+def p_direcp_abstracp_declarator_2(p):
+    'direcp_abstracp_declarator : direcp_abstracp_declarator LBRACKET constanp_expression_opt RBRACKET'
     pass
 
 
-def p_direct_abstract_declarator_3(p):
-    'direct_abstract_declarator : LBRACKET constant_expression_opt RBRACKET'
+def p_direcp_abstracp_declarator_3(p):
+    'direcp_abstracp_declarator : LBRACKET constanp_expression_opt RBRACKET'
     pass
 
 
-def p_direct_abstract_declarator_4(p):
-    'direct_abstract_declarator : direct_abstract_declarator LPAREN parameter_type_list_opt RPAREN'
+def p_direcp_abstracp_declarator_4(p):
+    'direcp_abstracp_declarator : direcp_abstracp_declarator LPAREN parameter_type_lisp_opt RPAREN'
     pass
 
 
-def p_direct_abstract_declarator_5(p):
-    'direct_abstract_declarator : LPAREN parameter_type_list_opt RPAREN'
+def p_direcp_abstracp_declarator_5(p):
+    'direcp_abstracp_declarator : LPAREN parameter_type_lisp_opt RPAREN'
     pass
 
 # Optional fields in abstract declarators
 
 
-def p_constant_expression_opt_1(p):
-    'constant_expression_opt : empty'
+def p_constanp_expression_opp_1(p):
+    'constanp_expression_opt : empty'
     pass
 
 
-def p_constant_expression_opt_2(p):
-    'constant_expression_opt : constant_expression'
+def p_constanp_expression_opp_2(p):
+    'constanp_expression_opt : constanp_expression'
     pass
 
 
-def p_parameter_type_list_opt_1(p):
-    'parameter_type_list_opt : empty'
+def p_parameter_type_lisp_opp_1(p):
+    'parameter_type_lisp_opt : empty'
     pass
 
 
-def p_parameter_type_list_opt_2(p):
-    'parameter_type_list_opt : parameter_type_list'
+def p_parameter_type_lisp_opp_2(p):
+    'parameter_type_lisp_opt : parameter_type_list'
     pass
 
 # statement:
@@ -482,87 +465,79 @@ def p_expression_statement(p):
 # compound-statement:
 
 
-def p_compound_statement_1(p):
-    'compound_statement : LBRACE declaration_list statement_list RBRACE'
+def p_compound_statemenp_1(p):
+    'compound_statement : LBRACE declaration_list statemenp_list RBRACE'
     pass
 
 
-def p_compound_statement_2(p):
-    'compound_statement : LBRACE statement_list RBRACE'
+def p_compound_statemenp_2(p):
+    'compound_statement : LBRACE statemenp_list RBRACE'
     pass
 
 
-def p_compound_statement_3(p):
+def p_compound_statemenp_3(p):
     'compound_statement : LBRACE declaration_list RBRACE'
     pass
 
 
-def p_compound_statement_4(p):
+def p_compound_statemenp_4(p):
     'compound_statement : LBRACE RBRACE'
     pass
 
 # statement-list:
 
 
-def p_statement_list_1(p):
-    'statement_list : statement'
+def p_statemenp_lisp_1(p):
+    'statemenp_list : statement'
     pass
 
 
-def p_statement_list_2(p):
-    'statement_list : statement_list statement'
+def p_statemenp_lisp_2(p):
+    'statemenp_list : statemenp_list statement'
     pass
 
 # selection-statement
 
 
-def p_selection_statement_1(p):
+def p_selection_statemenp_1(p):
     'selection_statement : IF LPAREN expression RPAREN statement'
-    global conditional_statement
-    conditional_statement += 1
     pass
 
 
-def p_selection_statement_2(p):
+def p_selection_statemenp_2(p):
     'selection_statement : IF LPAREN expression RPAREN statement ELSE statement '
-    global conditional_statement
-    conditional_statement += 1
     pass
 
 
 # iteration_statement:
 
 
-def p_iteration_statement_1(p):
+def p_iteration_statemenp_1(p):
     'iteration_statement : WHILE LPAREN expression RPAREN statement'
-    global loop
-    loop += 1
     pass
 
 
-def p_iteration_statement_2(p):
+def p_iteration_statemenp_2(p):
     'iteration_statement : FOR LPAREN expression_opt SEMI expression_opt SEMI expression_opt RPAREN statement '
-    global loop
-    loop += 1
     pass
 
 
-def p_jump_statement_3(p):
+def p_jump_statemenp_3(p):
     'jump_statement : BREAK SEMI'
     pass
 
 
-def p_jump_statement_4(p):
+def p_jump_statemenp_4(p):
     'jump_statement : RETURN expression_opt SEMI'
     pass
 
 
-def p_expression_opt_1(p):
+def p_expression_opp_1(p):
     'expression_opt : empty'
     pass
 
 
-def p_expression_opt_2(p):
+def p_expression_opp_2(p):
     'expression_opt : expression'
     pass
 
@@ -570,32 +545,32 @@ def p_expression_opt_2(p):
 
 
 def p_expression_1(p):
-    'expression : assignment_expression'
+    'expression : assignmenp_expression'
     pass
 
 
 def p_expression_2(p):
-    'expression : expression COMMA assignment_expression'
+    'expression : expression COMMA assignmenp_expression'
     pass
 
 # assigmenp_expression:
 
 
-def p_assignment_expression_1(p):
-    'assignment_expression : conditional_expression'
+def p_assignmenp_expression_1(p):
+    'assignmenp_expression : conditional_expression'
     pass
 
 
-def p_assignment_expression_2(p):
-    'assignment_expression : unary_expression assignment_operator assignment_expression'
+def p_assignmenp_expression_2(p):
+    'assignmenp_expression : unary_expression assignmenp_operator assignmenp_expression'
     pass
 
-# assignment_operator:
+# assignmenp_operator:
 
 
-def p_assignment_operator(p):
+def p_assignmenp_operator(p):
     '''
-    assignment_operator : EQUALS
+    assignmenp_operator : EQUALS
                         '''
     pass
 
@@ -609,8 +584,8 @@ def p_conditional_expression_1(p):
 # constant-expression
 
 
-def p_constant_expression(p):
-    'constant_expression : conditional_expression'
+def p_constanp_expression(p):
+    'constanp_expression : conditional_expression'
     pass
 
 # logical-or-expression
@@ -678,34 +653,34 @@ def p_equality_expression_2(p):
 
 # relational-expression:
 def p_relational_expression_1(p):
-    'relational_expression : shift_expression'
+    'relational_expression : shifp_expression'
     pass
 
 
 def p_relational_expression_2(p):
-    'relational_expression : relational_expression LT shift_expression'
+    'relational_expression : relational_expression LT shifp_expression'
     pass
 
 
 def p_relational_expression_3(p):
-    'relational_expression : relational_expression GT shift_expression'
+    'relational_expression : relational_expression GT shifp_expression'
     pass
 
 
 def p_relational_expression_4(p):
-    'relational_expression : relational_expression LE shift_expression'
+    'relational_expression : relational_expression LE shifp_expression'
     pass
 
 
 def p_relational_expression_5(p):
-    'relational_expression : relational_expression GE shift_expression'
+    'relational_expression : relational_expression GE shifp_expression'
     pass
 
 # shift-expression
 
 
-def p_shift_expression_1(p):
-    'shift_expression : additive_expression'
+def p_shifp_expression_1(p):
+    'shifp_expression : additive_expression'
     pass
 
 
@@ -730,34 +705,34 @@ def p_additive_expression_3(p):
 
 
 def p_multiplicative_expression_1(p):
-    'multiplicative_expression : cast_expression'
+    'multiplicative_expression : casp_expression'
     pass
 
 
 def p_multiplicative_expression_2(p):
-    'multiplicative_expression : multiplicative_expression TIMES cast_expression'
+    'multiplicative_expression : multiplicative_expression TIMES casp_expression'
     pass
 
 
 def p_multiplicative_expression_3(p):
-    'multiplicative_expression : multiplicative_expression DIVIDE cast_expression'
+    'multiplicative_expression : multiplicative_expression DIVIDE casp_expression'
     pass
 
 
 def p_multiplicative_expression_4(p):
-    'multiplicative_expression : multiplicative_expression MOD cast_expression'
+    'multiplicative_expression : multiplicative_expression MOD casp_expression'
     pass
 
 # cast-expression:
 
 
-def p_cast_expression_1(p):
-    'cast_expression : unary_expression'
+def p_casp_expression_1(p):
+    'casp_expression : unary_expression'
     pass
 
 
-def p_cast_expression_2(p):
-    'cast_expression : LPAREN type_name RPAREN cast_expression'
+def p_casp_expression_2(p):
+    'casp_expression : LPAREN type_name RPAREN casp_expression'
     pass
 
 # unary-expression:
@@ -779,7 +754,7 @@ def p_unary_expression_3(p):
 
 
 def p_unary_expression_4(p):
-    'unary_expression : unary_operator cast_expression'
+    'unary_expression : unary_operator casp_expression'
     pass
 
 
@@ -808,7 +783,7 @@ def p_postfix_expression_2(p):
 
 
 def p_postfix_expression_3(p):
-    'postfix_expression : postfix_expression LPAREN argument_expression_list RPAREN'
+    'postfix_expression : postfix_expression LPAREN argumenp_expression_list RPAREN'
     pass
 
 
@@ -839,9 +814,9 @@ def p_primary_expression(p):
 # argument-expression-list:
 
 
-def p_argument_expression_list(p):
-    '''argument_expression_list :  assignment_expression
-                              |  argument_expression_list COMMA assignment_expression'''
+def p_argumenp_expression_list(p):
+    '''argumenp_expression_list :  assignmenp_expression
+                              |  argumenp_expression_list COMMA assignmenp_expression'''
     pass
 
 # constant:
@@ -872,13 +847,4 @@ while True:
     except EOFError:
         break
     parser.parse(s)
-
-    # count variable
-    print('include %d: ' % include)
-    print('declared_functions %d: ' % declared_functions)
-    print('declared_variable %d: ' % declared_variable)
-    print('conditional_statement %d: ' % conditional_statement)
-    print('loop %d: ' % loop)
-    print('called_functions %d: ' % called_functions)
-
 
