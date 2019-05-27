@@ -24,8 +24,8 @@ tokens = reserved + (
     # char const)
     'ID', 'TYPEID', 'ICONST', 'FCONST', 'SCONST', 'CCONST',
 
-    # Operators (+,-,*,/,%, &, ||, &&, !, <, <=, >, >=, ==)
-    'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'MOD', 'AND', 'LOR',
+    # Operators (+,-,*,/,%,|, &,  <<, >> ||, &&, !, <, <=, >, >=, ==)
+    'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'MOD', 'OR', 'AND', 'LSHIFT', 'RSHIFT','LOR',
     'LAND', 'LNOT', 'LT', 'LE', 'GT', 'GE', 'EQ',
 
     # Assignment (=)
@@ -42,8 +42,8 @@ tokens = reserved + (
 
     'INCLUDE',
     'DOT',
-    'LCROC',
-    'RCROC'
+    # 'LCROC',
+    # 'RCROC'
 )
 
 # Operators
@@ -52,7 +52,10 @@ t_MINUS = r'-'
 t_TIMES = r'\*'
 t_DIVIDE = r'/'
 t_MOD = r'%'
+t_OR = r'\|'
 t_AND = r'&'
+t_LSHIFT = r'<<'
+t_RSHIFT = r'>>'
 t_LOR = r'\|\|'
 t_LT = r'<'
 t_GT = r'>'
@@ -80,8 +83,8 @@ t_SEMI = r';'
 # #include
 t_INCLUDE = r'\#include '
 t_DOT = r'\.h'
-t_LCROC = r'\<'
-t_RCROC = r'\>'
+# t_LCROC = r'\<'
+# t_RCROC = r'\>'
 
 '''
 # A regular expression rule with some action code
@@ -158,63 +161,77 @@ import ply.yacc as yacc
 
 def p_translation_unit_1(p):
     'translation_unit : external_declaration'
-    p[0] = p[1]
+    # p[0] = p[1]
 
 
 def p_translation_unit_2(p):
     'translation_unit : translation_unit external_declaration'
-    p[1].extend(p[2])
-    p[0] = p[1]
+    # p[1].extend(p[2])
+    # p[0] = p[1]
 
-def p_translation_unit_3(p): ################################################################ 추가한거!!!!
-    'translation_unit : INCLUDE LCROC ID include_endings' # LCROC include_stuff RCROC'
-    global include;
-    include += 1
-    pass
-##############################################################################################
-def p_include_endings_1(p):
-    'include_endings : DOT RCROC'
-    pass
-
-def p_include_endings_2(p):
-    'include_endings : RCROC'
-    pass
 
 # external-declaration:
 
 
 def p_external_declaration_1(p):
     'external_declaration : function_definition'
-    p[0] = [p[1]]
-    global declared_functions
-    declared_functions += 1
+    # p[0] = [p[1]]
 
 
 def p_external_declaration_2(p):
     'external_declaration : declaration'
-    p[0] = p[1]
+    # p[0] = p[1]
+
+def p_external_declaration_3(p): ################################################################ 추가한거!!!!
+    'external_declaration : INCLUDE LT ID include_endings' # LCROC include_stuff RCROC'
+    global include;
+    include += 1
+    pass
+def p_include_endings_1(p):
+    'include_endings : DOT GT'
+    pass
+
+def p_include_endings_2(p):
+    'include_endings : GT'
+    pass
+##############################################################################################
 
 # function-definition:
 
 
 def p_function_definition_1(p):
     'function_definition : declaration_specifiers declarator declaration_list compound_statement'
+    global declared_functions
+    declared_functions += 1
     pass
 
 
 def p_function_definition_2(p):
     'function_definition : declarator declaration_list compound_statement'
+    global declared_functions
+    declared_functions += 1
     pass
 
 
 def p_function_definition_3(p):
     'function_definition : declarator compound_statement'
+    global declared_functions
+    declared_functions += 1
     pass
 
 
 def p_function_definition_4(p):
     'function_definition : declaration_specifiers declarator compound_statement'
+    global declared_functions
+    declared_functions += 1
     pass
+'''
+def p_function_definition_5(p):################################################################################
+    'function_definition : declarator SEMI'
+    global called_functions
+    called_functions += 1
+    pass
+'''
 
 # declaration:
 
@@ -227,7 +244,13 @@ def p_declaration_1(p):
 def p_declaration_2(p):
     'declaration : declaration_specifiers SEMI'
     pass
-
+'''
+def p_declaration_3(p):################################################################################
+    'declaration : direct_declarator SEMI'
+    global called_functions
+    called_functions += 1
+    pass
+'''
 
 # declaration-list:
 
@@ -544,43 +567,43 @@ def p_statement_list_2(p):
 # selection-statement
 
 
-def p_selection_statement_1(p):
+def p_selection_statement_1(t):
     'selection_statement : IF LPAREN expression RPAREN statement'
     global conditional_statement
     conditional_statement += 1
     pass
 
 
-def p_selection_statement_2(p):
+def p_selection_statement_2(t):
     'selection_statement : IF LPAREN expression RPAREN statement ELSE statement '
     global conditional_statement
-    conditional_statement += 1
+    conditional_statement += 2
     pass
 
 
 # iteration_statement:
 
 
-def p_iteration_statement_1(p):
+def p_iteration_statement_1(t):
     'iteration_statement : WHILE LPAREN expression RPAREN statement'
     global loop
     loop += 1
     pass
 
 
-def p_iteration_statement_2(p):
+def p_iteration_statement_2(t):
     'iteration_statement : FOR LPAREN expression_opt SEMI expression_opt SEMI expression_opt RPAREN statement '
     global loop
     loop += 1
     pass
 
 
-def p_jump_statement_3(p):
+def p_jump_statement_1(p):
     'jump_statement : BREAK SEMI'
     pass
 
 
-def p_jump_statement_4(p):
+def p_jump_statement_2(p):
     'jump_statement : RETURN expression_opt SEMI'
     pass
 
@@ -606,7 +629,7 @@ def p_expression_2(p):
     'expression : expression COMMA assignment_expression'
     pass
 
-# assigmenp_expression:
+# assigment_expression:
 
 
 def p_assignment_expression_1(p):
@@ -672,6 +695,12 @@ def p_inclusive_or_expression_1(p):
     'inclusive_or_expression : exclusive_or_expression'
     pass
 
+
+def p_inclusive_or_expression_2(t):
+    'inclusive_or_expression : inclusive_or_expression OR exclusive_or_expression'
+    pass
+
+
 # exclusive-or-expression:
 
 
@@ -734,6 +763,16 @@ def p_relational_expression_5(p):
 
 def p_shift_expression_1(p):
     'shift_expression : additive_expression'
+    pass
+
+
+def p_shift_expression_2(t):
+    'shift_expression : shift_expression LSHIFT additive_expression'
+    pass
+
+
+def p_shift_expression_3(t):
+    'shift_expression : shift_expression RSHIFT additive_expression'
     pass
 
 
@@ -894,6 +933,19 @@ import profile
 # Build the grammar
 parser = yacc.yacc()
 
+f = open("test.c", 'r')
+data = f.read()
+parser.parse(data)
+
+# count variable
+print('include %d: ' % include)
+print('declared_functions %d: ' % declared_functions)
+print('declared_variable %d: ' % declared_variable)
+print('conditional_statement %d: ' % conditional_statement)
+print('loop %d: ' % loop)
+print('called_functions %d: ' % called_functions)
+
+'''
 while True:
     try:
         s = input('calc > ')  # Use raw_input on Python 2
@@ -908,5 +960,5 @@ while True:
     print('conditional_statement %d: ' % conditional_statement)
     print('loop %d: ' % loop)
     print('called_functions %d: ' % called_functions)
-
+'''
 

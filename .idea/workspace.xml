@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9fb8bd5-c217-47a5-85cc-f02c565f95ca" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/calc.py" beforeDir="false" afterPath="$PROJECT_DIR$/calc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calclex.py" beforeDir="false" afterPath="$PROJECT_DIR$/calclex.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calcyacc.py" beforeDir="false" afterPath="$PROJECT_DIR$/calcyacc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lex.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/yacc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser.out" beforeDir="false" afterPath="$PROJECT_DIR$/parser.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsetab.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsetab.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,8 +24,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/calc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="614">
-              <caret line="184" lean-forward="true" selection-start-line="184" selection-end-line="184" />
+            <state relative-caret-position="471">
+              <caret line="954" lean-forward="true" selection-start-line="954" selection-end-line="954" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/parsetab.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="23">
+              <caret line="27" column="95" selection-start-line="27" selection-start-column="95" selection-end-line="27" selection-end-column="95" />
             </state>
           </provider>
         </entry>
@@ -32,8 +42,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ply/yacc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="212" column="13" selection-start-line="212" selection-start-column="13" selection-end-line="212" selection-end-column="13" />
+            <state relative-caret-position="185">
+              <caret line="3429" selection-start-line="3429" selection-end-line="3429" />
               <folding>
                 <element signature="e#3319#3328#0" expanded="true" />
               </folding>
@@ -44,7 +54,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ply/lex.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
+            <state relative-caret-position="20815">
               <caret line="910" selection-start-line="910" selection-end-line="910" />
               <folding>
                 <element signature="e#1810#1819#0" expanded="true" />
@@ -56,7 +66,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/calclex.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2242">
+            <state relative-caret-position="2714">
               <caret line="118" selection-start-line="118" selection-end-line="118" />
             </state>
           </provider>
@@ -65,7 +75,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/calcyacc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18715">
+            <state relative-caret-position="22655">
               <caret line="987" column="31" selection-start-line="987" selection-start-column="31" selection-end-line="987" selection-end-column="31" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
@@ -85,36 +95,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>(p)</find>
-      <find>p.</find>
-      <find>lisp</find>
-      <find>unip</find>
-      <find>inip_</find>
-      <find>direcp_</find>
-      <find>constanp_</find>
-      <find>abstracp_</find>
-      <find>assignmenp_</find>
-      <find>statemenp_</find>
-      <find>opp_</find>
-      <find>shifp_</find>
-      <find>casp_</find>
-      <find>argumenp_</find>
-      <find>p_</find>
-      <find>MINUSMINUS</find>
-      <find>lex(</find>
-      <find>for</find>
-      <find>func</find>
-      <find>variable</find>
       <find>vari</find>
       <find>init_declarator</find>
       <find>SEMI</find>
       <find>declared_variable</find>
       <find>identifier_list</find>
       <find>parameter_type_list</find>
-      <find>declarator</find>
       <find>assignment_expression</find>
       <find>conditional_expression</find>
       <find>logical_or_expression</find>
+      <find>func</find>
+      <find>declaration_specifiers</find>
+      <find>declarator</find>
+      <find>declared</find>
+      <find>iteration_statement</find>
+      <find>called</find>
+      <find>calc - 복사본 (2)</find>
+      <find>for</find>
+      <find>expression</find>
+      <find>unary_expression</find>
+      <find>postfix_expression</find>
+      <find>compound_statement</find>
+      <find>relational</find>
+      <find>'</find>
+      <find>conditional_statement</find>
+      <find>expression_opt</find>
+      <find>statement</find>
+      <find>declaration_list</find>
+      <find>compound</find>
+      <find>initializer</find>
+      <find>called_functions</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -132,13 +142,14 @@
         <option value="$PROJECT_DIR$/calclex.py" />
         <option value="$PROJECT_DIR$/calcyacc.py" />
         <option value="$PROJECT_DIR$/ply/lex.py" />
+        <option value="$PROJECT_DIR$/parsetab.py" />
         <option value="$PROJECT_DIR$/calc.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="777" />
-    <option name="width" value="1150" />
+    <option name="x" value="953" />
+    <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
   <component name="ProjectView">
@@ -183,6 +194,27 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.calc">
+    <configuration name="calc - 복사본 (2)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="compiler" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/calc - 복사본 (2).py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="calc" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="compiler" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -230,6 +262,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.calc" />
+        <item itemvalue="Python.calc - 복사본 (2)" />
         <item itemvalue="Python.calclex" />
       </list>
     </recent_temporary>
@@ -264,15 +297,13 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.058102347" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.091675445" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32968238" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3286334" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.34164858" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3991323" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32968238" />
@@ -280,11 +311,13 @@
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="right" id="Database" />
-      <window_info anchor="right" id="SciView" />
+      <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="SciView" order="4" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -294,26 +327,16 @@
     <entry file="file://$PROJECT_DIR$/lex.py" />
     <entry file="file://$PROJECT_DIR$/yacc.py" />
     <entry file="file://D:/Download/project/example/calc.py" />
-    <entry file="file://$PROJECT_DIR$/calclex.py">
+    <entry file="file://$PROJECT_DIR$/calc - 복사본 (2).py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2242">
-          <caret line="118" selection-start-line="118" selection-end-line="118" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/calcyacc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18715">
-          <caret line="987" column="31" selection-start-line="987" selection-start-column="31" selection-end-line="987" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="178">
+          <caret line="537" column="30" selection-start-line="537" selection-start-column="27" selection-end-line="537" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ply/lex.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
+        <state relative-caret-position="20815">
           <caret line="910" selection-start-line="910" selection-end-line="910" />
           <folding>
             <element signature="e#1810#1819#0" expanded="true" />
@@ -321,10 +344,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/calclex.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2714">
+          <caret line="118" selection-start-line="118" selection-end-line="118" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/calcyacc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22655">
+          <caret line="987" column="31" selection-start-line="987" selection-start-column="31" selection-end-line="987" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parsetab.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="27" column="95" selection-start-line="27" selection-start-column="95" selection-end-line="27" selection-end-column="95" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ply/yacc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="212" column="13" selection-start-line="212" selection-start-column="13" selection-end-line="212" selection-end-column="13" />
+        <state relative-caret-position="185">
+          <caret line="3429" selection-start-line="3429" selection-end-line="3429" />
           <folding>
             <element signature="e#3319#3328#0" expanded="true" />
           </folding>
@@ -333,8 +380,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/calc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="614">
-          <caret line="184" lean-forward="true" selection-start-line="184" selection-end-line="184" />
+        <state relative-caret-position="471">
+          <caret line="954" lean-forward="true" selection-start-line="954" selection-end-line="954" />
         </state>
       </provider>
     </entry>
