@@ -39,6 +39,11 @@ tokens = reserved + (
     'LBRACKET', 'RBRACKET',
     'LBRACE', 'RBRACE',
     'COMMA', 'SEMI',
+
+    'INCLUDE',
+    'DOT',
+    'LCROC',
+    'RCROC'
 )
 
 # Operators
@@ -71,6 +76,12 @@ t_LBRACE = r'\{'
 t_RBRACE = r'\}'
 t_COMMA = r','
 t_SEMI = r';'
+
+# #include
+t_INCLUDE = r'\#include '
+t_DOT = r'\.h'
+t_LCROC = r'\<'
+t_RCROC = r'\>'
 
 '''
 # A regular expression rule with some action code
@@ -118,10 +129,12 @@ def t_comment(t):
     r'/\*(.|\n)*?\*/'
     t.lexer.lineno += t.value.count('\n')
 
+'''
 # Preprocessor directive (ignored)
 def t_preprocessor(t):
     r'\#(.)*?\n'
     t.lexer.lineno += 1
+'''
 
 # Error handling rule
 def t_error(t):
@@ -152,6 +165,20 @@ def p_translation_unit_2(p):
     'translation_unit : translation_unit external_declaration'
     p[1].extend(p[2])
     p[0] = p[1]
+
+def p_translation_unit_3(p): ################################################################ 추가한거!!!!
+    'translation_unit : INCLUDE LCROC ID include_endings' # LCROC include_stuff RCROC'
+    global include;
+    include += 1
+    pass
+##############################################################################################
+def p_include_endings_1(p):
+    'include_endings : DOT RCROC'
+    pass
+
+def p_include_endings_2(p):
+    'include_endings : RCROC'
+    pass
 
 # external-declaration:
 
@@ -200,6 +227,7 @@ def p_declaration_1(p):
 def p_declaration_2(p):
     'declaration : declaration_specifiers SEMI'
     pass
+
 
 # declaration-list:
 
