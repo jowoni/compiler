@@ -246,7 +246,7 @@ def p_declaration_2(p):
     pass
 '''
 def p_declaration_3(p):################################################################################
-    'declaration : direct_declarator SEMI'
+    'declaration : init_declarator_list SEMI'
     global called_functions
     called_functions += 1
     pass
@@ -577,7 +577,7 @@ def p_selection_statement_1(t):
 def p_selection_statement_2(t):
     'selection_statement : IF LPAREN expression RPAREN statement ELSE statement '
     global conditional_statement
-    conditional_statement += 2
+    conditional_statement += 1
     pass
 
 
@@ -897,11 +897,24 @@ def p_postfix_expression_6(p):
 
 
 def p_primary_expression(p):
-    '''primary_expression :  ID
-                        |  constant
+    '''primary_expression : constant
                         |  SCONST
-                        |  LPAREN expression RPAREN'''
+                        | ID function_call
+                        | LPAREN expression RPAREN
+                        | LPAREN RPAREN'''
     pass
+################################################################### 추가한거
+def p_function_call(p):
+    '''function_call : function_call2
+                        | empty'''
+    pass
+def p_function_call2(p):
+    '''function_call2 : LPAREN expression RPAREN
+                        | LPAREN RPAREN'''
+    global called_functions
+    called_functions += 1
+    pass
+
 
 # argument-expression-list:
 
@@ -929,11 +942,15 @@ def p_empty(p):
 def p_error(p):
     print("Whoa. We're hosed")
 
-import profile
+
 # Build the grammar
 parser = yacc.yacc()
 
-f = open("test.c", 'r')
+
+print('input file name below:')
+f_name = input()
+
+f = open(f_name, 'r')
 data = f.read()
 parser.parse(data)
 
@@ -944,21 +961,4 @@ print('declared_variable %d: ' % declared_variable)
 print('conditional_statement %d: ' % conditional_statement)
 print('loop %d: ' % loop)
 print('called_functions %d: ' % called_functions)
-
-'''
-while True:
-    try:
-        s = input('calc > ')  # Use raw_input on Python 2
-    except EOFError:
-        break
-    parser.parse(s)
-
-    # count variable
-    print('include %d: ' % include)
-    print('declared_functions %d: ' % declared_functions)
-    print('declared_variable %d: ' % declared_variable)
-    print('conditional_statement %d: ' % conditional_statement)
-    print('loop %d: ' % loop)
-    print('called_functions %d: ' % called_functions)
-'''
 
